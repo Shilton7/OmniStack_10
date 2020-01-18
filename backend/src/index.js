@@ -1,6 +1,7 @@
 const express = require('express');
 const mongoose = require('mongoose');
 const routes = require('./routes');
+const cors = require('cors');
 
 const app = express();
 
@@ -10,8 +11,8 @@ mongoose.connect('mongodb+srv://shilton:shilton@clusteraircnc-kosdj.mongodb.net/
   useUnifiedTopology: true
 });
 
-//formatado de response
-app.use(express.json());
+app.use(cors()); //habilitando cors /acesso externo
+app.use(express.json()); //formatado de response
 app.use(routes);
 
 //porta
