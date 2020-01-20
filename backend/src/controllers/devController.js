@@ -33,5 +33,26 @@ module.exports = {
     }
 
     return response.json(dev);
+  },
+  async delete(request, response) {
+    const dev = await Dev.findOneAndDelete(request.params._id)
+      .then(dev => {
+        if (!dev) {
+          return response.status(404).send({
+            message: 'Dev not found with id ' + request.params._id
+          });
+        }
+        response.send({ message: 'Dev deleted successfully!' });
+      })
+      .catch(err => {
+        if (err.kind === 'ObjectId' || err.name === 'NotFound') {
+          return response.status(404).send({
+            message: 'Dev not found with id ' + request.params._id
+          });
+        }
+        return response.status(500).send({
+          message: 'Could not delete note with id ' + request.params._id
+        });
+      });
   }
 };

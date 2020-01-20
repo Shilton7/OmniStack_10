@@ -31,11 +31,7 @@ function App() {
       </aside>
 
       <main>
-        <ul>
-          {devs.map(dev => (
-            <DevItem key={dev._id} dev={dev} />
-          ))}
-        </ul>
+        <ul>{devs.length > 0 ? devs.map(dev => <DevItem key={dev._id} dev={dev} />) : 'Nenhum Dev Cadastrado!'}</ul>
       </main>
     </div>
   );

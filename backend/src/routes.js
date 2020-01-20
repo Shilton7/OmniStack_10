@@ -13,4 +13,6 @@ routes.post('/devs', DevController.store);
 //buscar devs no maps por techs
 routes.get('/search', SearchController.index);
 
+routes.delete('/devs/:_id', DevController.delete);
+
 module.exports = routes;
