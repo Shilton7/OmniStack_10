@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from 'react';
-import { StyleSheet } from 'react-native';
-import MapView from 'react-native-maps';
+import { StyleSheet, Image, View, Text } from 'react-native';
+import MapView, { Marker, Callout } from 'react-native-maps';
 import { requestPermissionsAsync, getCurrentPositionAsync } from 'expo-location';
 
-function Main() {
+function Main({ navigation }) {
   const [localizacaoAtual, setLocalizacaoAtual] = useState(null);
 
   useEffect(() => {
@@ -33,12 +33,51 @@ function Main() {
     return null;
   }
 
-  return <MapView initialRegion={localizacaoAtual} style={syles.map} />;
+  return (
+    <MapView initialRegion={localizacaoAtual} style={styles.map}>
+      <Marker coordinate={{ latitude: -19.8872186, longitude: -43.8004105 }}>
+        <Image style={styles.avatar} source={{ uri: 'https://avatars2.githubusercontent.com/u/8092749?s=460&v=4' }} />
+
+        <Callout
+          onPress={() => {
+            navigation.navigate('Profile', { github_username: 'Shilton7' });
+          }}
+        >
+          <View style={styles.callout}>
+            <Text style={styles.devname}>Shilton</Text>
+            <Text style={styles.devBio}>Lorem Ipsum</Text>
+            <Text style={styles.devTechs}>PHP, .NET</Text>
+          </View>
+        </Callout>
+      </Marker>
+    </MapView>
+  );
 }
 
-const syles = StyleSheet.create({
+const styles = StyleSheet.create({
   map: {
     flex: 1
+  },
+  avatar: {
+    width: 60,
+    height: 60,
+    borderRadius: 2,
+    borderWidth: 2,
+    borderColor: '#FFF'
+  },
+  callout: {
+    width: 260
+  },
+  devname: {
+    fontWeight: 'bold',
+    fontSize: 16
+  },
+  devBio: {
+    color: '#666',
+    marginTop: 5
+  },
+  devTechs: {
+    marginTop: 5
   }
 });
 

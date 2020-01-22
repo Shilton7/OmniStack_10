@@ -23,6 +23,7 @@ const Routes = createAppContainer(
     {
       //Aplicadas a todas as telas
       defaultNavigationOptions: {
+        headerBackTitleVisible: false, //label seta voltar
         headerTintColor: '#FFF',
         headerStyle: {
           backgroundColor: '#7D40E7'
