@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 
 //tabela de Localização
-const PoinstSchema = new mongoose.Schema({
+const PointSchema = new mongoose.Schema({
   type: {
     type: String,
     enum: ['Point'],
@@ -13,4 +13,4 @@ const PoinstSchema = new mongoose.Schema({
   }
 });
 
-module.exports = PoinstSchema;
+module.exports = PointSchema;

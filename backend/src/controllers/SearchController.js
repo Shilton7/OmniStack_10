@@ -14,7 +14,7 @@ module.exports = {
       location: {
         $near: {
           $geometry: {
-            type: 'Point',
+            type: `Point`,
             coordinates: [longitude, latitude]
           },
           $maxDistance: 10000 //10km max distancia

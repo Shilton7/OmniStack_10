@@ -1,5 +1,5 @@
 const mongoose = require('mongoose');
-const PoinstSchema = require('../models/PointSchema');
+const PointSchema = require('../models/PointSchema');
 
 // Tabela de Devs
 const DevSchema = new mongoose.Schema({
@@ -9,7 +9,7 @@ const DevSchema = new mongoose.Schema({
   avatar_url: String,
   techs: [String],
   location: {
-    type: PoinstSchema,
+    type: PointSchema,
     index: '2dsphere'
   }
 });
