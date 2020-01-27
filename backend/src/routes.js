@@ -10,9 +10,13 @@ routes.get('/devs', DevController.index);
 //Salvar devs
 routes.post('/devs', DevController.store);
 
+//atualizar
+routes.put('/devs/:id', DevController.update);
+
+//deletar
+routes.delete('/devs/:_id', DevController.delete);
+
 //buscar devs no maps por techs
 routes.get('/search', SearchController.index);
-
-routes.delete('/devs/:_id', DevController.delete);
 
 module.exports = routes;

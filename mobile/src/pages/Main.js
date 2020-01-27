@@ -4,12 +4,14 @@ import MapView, { Marker, Callout } from 'react-native-maps';
 import { requestPermissionsAsync, getCurrentPositionAsync } from 'expo-location';
 import { MaterialIcons } from '@expo/vector-icons';
 import api from '../services/api';
+import { connect, disconnect, subscribeToNovoDevs } from '../services/socket';
 
 function Main({ navigation }) {
   const [localizacaoAtual, setLocalizacaoAtual] = useState(null);
   const [devs, setDevs] = useState([]);
   const [techs, setTechs] = useState('');
 
+  //useEffect: sempre que uma variavel especifica, sofrer alteração ele é acionado
   useEffect(() => {
     async function carregaPosicaoInicial() {
       //permissão
@@ -33,6 +35,10 @@ function Main({ navigation }) {
     carregaPosicaoInicial();
   }, []);
 
+  useEffect(() => {
+    subscribeToNovoDevs(dev => setDevs([...devs, dev]));
+  }, [devs]);
+
   async function carregaDevs() {
     const { latitude, longitude } = localizacaoAtual;
 
@@ -45,6 +51,13 @@ function Main({ navigation }) {
     });
 
     setDevs(response.data);
+    setupWebSocket(); //real time
+  }
+
+  function setupWebSocket() {
+    disconnect();
+    const { latitude, longitude } = localizacaoAtual;
+    connect(latitude, longitude, techs);
   }
 
   //setando localização ao arrastar mapa com a mão

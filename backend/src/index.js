@@ -3,8 +3,12 @@ const mongoose = require('mongoose');
 const dbConfig = require('./config/database.config.js');
 const routes = require('./routes');
 const cors = require('cors');
+const htpp = require('http');
+const { setupWebsocket } = require('./websocket');
 
 const app = express();
+const server = htpp.Server(app);
+setupWebsocket(server);
 
 //conexão
 mongoose
@@ -25,6 +29,6 @@ app.use(express.json()); //formatado de response
 app.use(routes);
 
 //porta server
-app.listen(3333, () => {
+server.listen(3333, () => {
   console.log('Server is listening on port 3333');
 });
